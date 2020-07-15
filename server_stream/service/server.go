@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pd "go-grpc-dome/simple/proto"
+	pd "go-grpc-dome/server_stream/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"

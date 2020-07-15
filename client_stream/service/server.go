@@ -1,7 +1,7 @@
 package main
 
 import (
-	pd "../proto"
+	pd "go-grpc-dome/client_stream/proto"
 	"context"
 	"google.golang.org/grpc"
 	"io"
