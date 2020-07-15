@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	pd "go-grpc-dome/both_stream/proto"
+	"google.golang.org/grpc"
 	"io"
 	"log"
 	"strconv"
@@ -13,7 +14,15 @@ const Address string = ":50501"
 var streamClient pd.StreamClient
 
 func main(){
+	connect, err:=grpc.Dial(Address, grpc.WithInsecure())
+	if err !=nil{
+		log.Fatalf("connect fail err:%v", err)
+	}
+	defer connect.Close()
 
+	streamClient = pd.NewStreamClient(connect)
+	route()
+	conversations()
 }
 
 func route(){
