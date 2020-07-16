@@ -50,8 +50,42 @@
 
 * Go gRPC教程-客户端流式RPC（四）
 
+* Go gRPC教程-双向流式RPC（五）
+
+### 拓展
+
+* Go gRPC进阶-超时设置（六）
+
+* Go gRPC进阶-TLS认证+自定义方法认证（七）
+    *  生成私钥
+    
+    生成RSA私钥：openssl genrsa -out server.key 2048
+    > 生成RSA私钥，命令的最后一个参数，将指定生成密钥的位数，如果没有指定，默认512 
+                                                                                                                                                                                       
+    * 生成公钥
+    
+    `openssl req -new -x509 -sha256 -key server.key -out server.pem -days 3650`
+    > openssl req：生成自签名证书，-new指生成证书请求、-sha256指使用sha256加密、-key指定私钥文件、-x509指输出证书、-days 3650为有效期
+    
+    此后则输入证书拥有者信息
+    ```
+    Country Name (2 letter code) [AU]:CN
+    State or Province Name (full name) [Some-State]:YxYx
+    Locality Name (eg, city) []:YxYx
+    Organization Name (eg, company) [Internet Widgits Pty Ltd]:YX Co. Ltd
+    Organizational Unit Name (eg, section) []:Develop
+    Common Name (e.g. server FQDN or YOUR name) []:go-grpc-dome
+    Email Address []:yxx@yxx.com
+    ```
+    
+* Go gRPC进阶-go-grpc-middleware使用（八）
+
+* Go gRPC进阶-proto数据验证（九）
+
+* Go gRPC进阶-gRPC转换HTTP（十）
 
 
-### 感谢
+
+### 鸣谢
 * [Go gRPC官方文档](https://grpc.io/docs/languages/go/quickstart/)
 
