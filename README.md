@@ -4,14 +4,16 @@
 
 * Go gRPC教程-环境安装（一） 
    
-   * 安装proto (mac) 
-      * 命令：`brew install protoc`
-   * 安装 goalng 的proto编译支持
-     * `go get -u github.com/golang/protobuf/protoc-gen-go`
-   * 安装 gRPC包
-     * `go get -u google.golang.org/grpc`   
-   * 创建并编译proto文件
-      * 新建proto文件夹，在里面新建simple.proto文件
+   ### 安装proto (mac) 
+   命令：`brew install protoc`
+   ### 安装 goalng 的proto编译支持
+    `go get -u github.com/golang/protobuf/protoc-gen-go`
+   ### 安装 gRPC包
+    `go get -u google.golang.org/grpc`   
+   ### 创建并编译proto文件
+      
+   新建proto文件夹，在里面新建simple.proto文件
+      
       ```
         syntax = "proto3";// 协议为proto3
         
@@ -38,11 +40,10 @@
         }
       ``` 
 
-      * 编译proto文件 
-      
-      cmd进入simple.proto所在目录，运行以下指令进行编译
-   
-      protoc --go_out=plugins=grpc:./ ./simple.proto          
+   编译proto文件 
+   > cmd进入simple.proto所在目录，运行以下指令进行编译
+
+   `protoc --go_out=plugins=grpc:./ ./simple.proto`          
     
 * Go gRPC教程-简单RPC（二）
 
@@ -57,12 +58,12 @@
 * Go gRPC进阶-超时设置（六）
 
 * Go gRPC进阶-TLS认证+自定义方法认证（七）
-    *  生成私钥
+    ### 生成私钥
     
     生成RSA私钥：openssl genrsa -out server.key 2048
     > 生成RSA私钥，命令的最后一个参数，将指定生成密钥的位数，如果没有指定，默认512 
                                                                                                                                                                                        
-    * 生成公钥
+    ### 生成公钥
     
     `openssl req -new -x509 -sha256 -key server.key -out server.pem -days 3650`
     > openssl req：生成自签名证书，-new指生成证书请求、-sha256指使用sha256加密、-key指定私钥文件、-x509指输出证书、-days 3650为有效期
@@ -79,6 +80,35 @@
     ```
     
 * Go gRPC进阶-go-grpc-middleware使用（八）
+    ### go-grpc-middleware简介
+    
+    go-grpc-middleware封装了认证（auth）, 日志（ logging）, 消息（message）, 验证（validation）, 重试（retries） 和监控（retries）等拦截器。
+    * 安装 `go get github.com/grpc-ecosystem/go-grpc-middleware`
+    * 使用
+       ```
+       import "github.com/grpc-ecosystem/go-grpc-middleware"
+       myServer := grpc.NewServer(
+           grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
+               grpc_ctxtags.StreamServerInterceptor(),
+               grpc_opentracing.StreamServerInterceptor(),
+               grpc_prometheus.StreamServerInterceptor,
+               grpc_zap.StreamServerInterceptor(zapLogger),
+               grpc_auth.StreamServerInterceptor(myAuthFunction),
+               grpc_recovery.StreamServerInterceptor(),
+           )),
+           grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
+               grpc_ctxtags.UnaryServerInterceptor(),
+               grpc_opentracing.UnaryServerInterceptor(),
+               grpc_prometheus.UnaryServerInterceptor,
+               grpc_zap.UnaryServerInterceptor(zapLogger),
+               grpc_auth.UnaryServerInterceptor(myAuthFunction),
+               grpc_recovery.UnaryServerInterceptor(),
+           )),
+       )
+       ```
+      
+      
+       
 
 * Go gRPC进阶-proto数据验证（九）
 
