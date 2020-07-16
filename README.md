@@ -107,13 +107,6 @@
        )
        ```
       
-      
-       
-
-* Go gRPC进阶-proto数据验证（九）
-
-* Go gRPC进阶-gRPC转换HTTP（十）
-
 
 
 ### 鸣谢
